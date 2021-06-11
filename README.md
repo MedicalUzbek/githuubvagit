@@ -1,2 +1,2 @@
-# githuubvagit
-github da ishlash
+# githubtutorial
+github
