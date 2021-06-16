@@ -83,7 +83,26 @@ router.delete('/:movie_id', function(req,res, next){
 // GET Top 10 musicni chiqarish
 
 router.get('/top/top10', function(req,res, next){
-  const promise = Movie.find({}).limit(10).sort({imdb_score: 1});
+  const promise = Movie.find({}).limit(10).sort({imdb_score: -1});
+
+  promise.then(movie =>{
+    res.json(movie)
+  }).catch(err => {
+    console.log(err);
+  })
+});
+
+//      ikki son orasidagi kinolarni chiqarish.
+
+router.get('/betwen/:start_year/:end_year', function(req,res, next){
+  
+  const {start_year, end_year} = req.params;
+
+  const promise = Movie.find({
+    year: {"$gte" : parseInt(start_year), "$lte": parseInt(end_year) }
+  })
+
+
 
   promise.then(movie =>{
     res.json(movie)
