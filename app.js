@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
+const app = express();
 const indexRouter = require('./routes/index');
 const directorRouter = require('./routes/director');
 const moviesRouter = require("./routes/movies");
@@ -11,7 +11,14 @@ const moviesRouter = require("./routes/movies");
 const db = require('./helper/db')
 db();
 
-const app = express();
+
+const config = require('./config');
+
+app.set('app_secret_key', config.app_secret_key);
+
+const tokenverify = require('./middleware/toke-veryfy')
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
